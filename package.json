@@ -1,0 +1,38 @@
+{
+  "name": "ember-cli-deploy-zesty-pack",
+  "version": "0.0.0",
+  "license": "MIT",
+  "description": "An opinionated collection of ember-cli-deploy plugins used to manage continuous deployment at Zesty.",
+  "keywords": [
+    "ember-addon",
+    "ember-cli-deploy-plugin-pack"
+  ],
+  "author": "Martin Muñoz <im.mmun@gmail.com>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bluebird": "^3.0.5",
+    "ember-cli-deploy-build": "^0.1.0",
+    "ember-cli-deploy-display-revisions": "^0.1.0",
+    "ember-cli-deploy-gzip": "^0.1.0",
+    "ember-cli-deploy-manifest": "^0.1.0",
+    "ember-cli-deploy-redis": "^0.1.0",
+    "ember-cli-deploy-revision-data": "^0.1.0",
+    "ember-cli-deploy-s3": "^0.1.0",
+    "github": "^0.2.4",
+    "inflected": "^1.1.6",
+    "node-slackr": "^0.1.2"
+  },
+  "devDependencies": {
+    "ember-cli": "1.13.8",
+    "ember-cli-release": "^0.2.8"
+  },
+  "ember-addon": {
+    "defaultBlueprint": "zesty-deploy-config",
+    "paths": [
+      "lib/ember-cli-deploy-zesty-plugin"
+    ]
+  }
+}
