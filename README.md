@@ -10,7 +10,7 @@ It relies on GitHub, CircleCI, Slack, S3 for assets and Redis for indexes.
 ember install ember-cli-deploy-zesty-pack
 ```
 
-To update your config/deploy.js from our blueprint run
+To update your config/deploy.js and circle.yml from our blueprint run
 
 ```
 ember generate zesty-deploy-config

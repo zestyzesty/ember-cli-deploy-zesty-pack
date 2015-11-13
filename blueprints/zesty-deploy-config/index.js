@@ -1,4 +1,4 @@
 module.exports = {
-  description: 'Generate a config/deploy.js for ember-cli-deploy-zesty-pack',
+  description: 'Generate configuration for ember-cli-deploy-zesty-pack',
   normalizeEntityName: function() {}
 };

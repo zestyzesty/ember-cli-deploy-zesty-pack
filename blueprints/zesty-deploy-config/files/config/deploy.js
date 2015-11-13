@@ -16,12 +16,12 @@ module.exports = function(deployTarget) {
     },
 
     build: {
-      environment: undefined
+      environment: 'production'
     },
 
     redis: {
       url: env('REDIS_URL'),
-      allowOverwrite: true,
+      allowOverwrite: true
     },
 
     s3: {
@@ -34,14 +34,10 @@ module.exports = function(deployTarget) {
 
   if (deployTarget === 'production') {
 
-    ENV.build.environment = 'production';
-
     ENV.s3.region = env('PRODUCTION_REGION');
     ENV.s3.bucket = env('PRODUCTION_BUCKET');
 
   } else if (deployTarget === 'pull-request') {
-
-    ENV.build.environment = 'development';
 
     ENV.s3.region = env('PULL_REQUEST_REGION');
     ENV.s3.bucket = env('PULL_REQUEST_BUCKET');
