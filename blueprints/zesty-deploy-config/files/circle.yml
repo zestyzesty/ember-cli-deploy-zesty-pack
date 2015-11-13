@@ -15,4 +15,4 @@ deployment:
   pull-request:
     branch: /^((?!master).)*$/
     commands:
-      - '[ -n "$CI_PULL_REQUEST" ] && ember deploy pull-request'
+      - 'if [ -n "$CI_PULL_REQUEST" ]; then ember deploy pull-request; fi'
