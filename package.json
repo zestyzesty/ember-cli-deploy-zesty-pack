@@ -2,7 +2,8 @@
   "name": "ember-cli-deploy-zesty-pack",
   "version": "0.1.2",
   "license": "MIT",
-  "description": "An opinionated collection of ember-cli-deploy plugins used to manage continuous deployment at Zesty.",
+  "description": "An opinionated collection of ember-cli-deploy plugins for continuous deployment",
+  "repository": "https://github.com/zestyzesty/ember-cli-deploy-zesty-pack.git",
   "keywords": [
     "ember-addon",
     "ember-cli-deploy-plugin-pack"
