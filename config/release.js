@@ -1,3 +1,3 @@
 module.exports = {
-  message: ":tada: %@"
+  message: ":tada: Release %@"
 };
