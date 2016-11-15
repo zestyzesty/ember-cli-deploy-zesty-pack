@@ -3,9 +3,13 @@ machine:
     version: 6
 
 dependencies:
-  post:
-    - npm install -g bower
+  override:
+    - npm install -g bower yarn
     - bower install
+    - yarn install
+
+  cache_directories:
+    - ~/.yarn-cache
 
 deployment:
   production:
