@@ -15,7 +15,7 @@ deployment:
   production:
     branch: master
     commands:
-      - 'ember deploy production --activate'
+      - yarn run -- ember deploy production --activate
 
   pull-request:
     branch: /^((?!master).)*$/
