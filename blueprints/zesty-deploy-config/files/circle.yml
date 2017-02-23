@@ -4,9 +4,11 @@ machine:
 
 dependencies:
   override:
-    - npm install -g bower yarn
+    - npm install -g bower yarn@rc
+    - bower --version
     - bower install
-    - yarn install
+    - /opt/circleci/nodejs/v6.10.0/bin/yarn --version
+    - /opt/circleci/nodejs/v6.10.0/bin/yarn install --frozen-lockfile
 
   cache_directories:
     - /opt/circleci/nodejs/v6.10.0/bin
