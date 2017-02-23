@@ -9,7 +9,6 @@ dependencies:
     - yarn install
 
   cache_directories:
-    - ~/.yarn-cache
     - /opt/circleci/nodejs/v6.10.0/bin
     - /opt/circleci/nodejs/v6.10.0/lib/node_modules
 
