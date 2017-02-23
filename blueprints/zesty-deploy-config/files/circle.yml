@@ -9,6 +9,7 @@ dependencies:
     - bower install
     - /opt/circleci/nodejs/v6.10.0/bin/yarn --version
     - /opt/circleci/nodejs/v6.10.0/bin/yarn install --frozen-lockfile
+    - npm rebuild node-sass
 
   cache_directories:
     - /opt/circleci/nodejs/v6.10.0/bin
