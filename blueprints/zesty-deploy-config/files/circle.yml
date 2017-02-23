@@ -1,15 +1,19 @@
 machine:
   node:
-    version: 6
+    version: 6.10.0
 
 dependencies:
   override:
-    - npm install -g bower yarn
+    - npm install -g bower yarn@rc
+    - bower --version
     - bower install
-    - yarn install
+    - /opt/circleci/nodejs/v6.10.0/bin/yarn --version
+    - /opt/circleci/nodejs/v6.10.0/bin/yarn install --frozen-lockfile
+    - npm rebuild node-sass
 
   cache_directories:
-    - ~/.yarn-cache
+    - /opt/circleci/nodejs/v6.10.0/bin
+    - /opt/circleci/nodejs/v6.10.0/lib/node_modules
 
 deployment:
   production:
