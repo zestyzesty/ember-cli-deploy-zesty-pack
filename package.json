@@ -15,13 +15,13 @@
   },
   "dependencies": {
     "bluebird": "^3.0.5",
-    "ember-cli-deploy-build": "^0.1.0",
+    "ember-cli-deploy-build": "^1.1.0",
     "ember-cli-deploy-display-revisions": "^0.1.0",
-    "ember-cli-deploy-gzip": "^0.1.0",
-    "ember-cli-deploy-manifest": "^0.1.0",
-    "ember-cli-deploy-redis": "^0.1.0",
+    "ember-cli-deploy-gzip": "^1.0.0",
+    "ember-cli-deploy-manifest": "^1.1.0",
+    "ember-cli-deploy-redis": "^1.0.2",
     "ember-cli-deploy-revision-data": "^0.1.0",
-    "ember-cli-deploy-s3": "^0.1.0",
+    "ember-cli-deploy-s3": "^1.1.0",
     "github": "^0.2.4",
     "inflected": "^1.1.6",
     "node-slackr": "^0.1.2"
