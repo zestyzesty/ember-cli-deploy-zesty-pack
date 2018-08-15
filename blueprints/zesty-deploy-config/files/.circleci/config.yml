@@ -3,7 +3,6 @@ jobs:
   build:
     docker:
       - image: circleci/node:6.14-browsers
-    working_directory: ~/shifts
     environment:
       - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
     steps:
@@ -18,29 +17,35 @@ jobs:
             name: Rebuild with node
             command: npm rebuild node-sass
         - run:
+            name: Bower install
+            command: bower install
+        - run:
             name: Version check
             command: |
               yarn --version
               npm --version
+              bower --version
         - run:
             name: Test
-            command: npm test
+            command: yarn test
     deploy:
-      machine:
-        enabled: true
-      working_directory: ~/shifts
+      docker:
+        - image: circleci/node:6.14-browsers
       steps:
         - checkout
         - run:
             name: Deploy master to production
             command: yarn run -- ember deploy production --activate --verbose
-    pull-request:
-      working_directory: ~/shifts
-      steps:
-        - checkout
-        - run:
-            name: Pull request
-            command: 'if [ -n "$CI_PULL_REQUEST" ]; then yarn run -- ember deploy pull-request; fi'
+  pull-request:
+    docker:
+      - image: circleci/node:6.14-browsers
+    environment:
+      - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
+    steps:
+      - checkout
+      - run:
+          name: Pull request
+          command: 'if [ -n "$CI_PULL_REQUEST" ]; then yarn run -- ember deploy pull-request; fi'
 
 workflows:
   version: 2
