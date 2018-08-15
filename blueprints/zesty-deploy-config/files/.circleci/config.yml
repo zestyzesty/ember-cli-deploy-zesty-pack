@@ -1,0 +1,61 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.14-browsers
+    working_directory: ~/shifts
+    environment:
+      - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
+    steps:
+        - checkout
+        - run:
+            name: Update yarn
+            command: sudo npm install -g bower yarn@rc
+        - run:
+            name: Install yarn lockfile
+            command: yarn install --frozen-lockfile
+        - run:
+            name: Rebuild with node
+            command: npm rebuild node-sass
+        - run:
+            name: Version check
+            command: |
+              yarn --version
+              npm --version
+        - run:
+            name: Test
+            command: npm test
+    deploy:
+      machine:
+        enabled: true
+      working_directory: ~/shifts
+      steps:
+        - checkout
+        - run:
+            name: Deploy master to production
+            command: yarn run -- ember deploy production --activate --verbose
+    pull-request:
+      working_directory: ~/shifts
+      steps:
+        - checkout
+        - run:
+            name: Pull request
+            command: 'if [ -n "$CI_PULL_REQUEST" ]; then yarn run -- ember deploy pull-request; fi'
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - pull-request:
+          requires:
+            - build
+          filters:
+            branches:
+              only: /^((?!master).)*$/
