@@ -8,14 +8,18 @@ jobs:
     steps:
         - checkout
 
-        # Install Yarn dependencies
-        # Attempt to restore from cache. If not install Bower and Yarn
+        # Install global dependencies
+        - run:
+            name: Install global dependencies
+            command: |
+              sudo npm install -g yarn@rc
+              <% if (bowerRequired) { %>sudo npm install -g bower<% } %>
+
+        # Install yarn dependencies
+        # Attempt to restore from cache. If not install dependencies and save.
         - restore_cache:
             keys:
               - v1-yarn-deps-{{ checksum "yarn.lock" }}
-        - run:
-            name: Install Bower and Yarn
-            command: sudo npm install -g bower yarn@rc
         - run:
             name: Install yarn dependencies
             command: yarn install --frozen-lockfile
@@ -27,20 +31,19 @@ jobs:
             paths:
               - "./node_modules"
 
+        <% if (bowerRequired) { %>
         # Install Bower dependencies
         - restore_cache:
             keys:
               - v1-bower-deps-{{ checksum "bower.json" }}
         - run:
             name: Install bower dependencies
-            command: |
-              if [ -f "bower.json" ]; then
-                bower install
-              fi
+            command: bower install
         - save_cache:
             key: v1-bower-deps-{{ checksum "bower.json" }}
             paths:
-              - "./.bower"
+              - "./bower_components"
+        <% } %>
 
         # Check versions
         - run:
@@ -48,7 +51,7 @@ jobs:
             command: |
               npm --version
               yarn --version
-              bower --version
+              <% if (bowerRequired) { %>bower --version<% } %>
 
         # Run the test command
         - run:
@@ -65,9 +68,13 @@ jobs:
       - restore_cache:
           keys:
             - v1-yarn-deps-{{ checksum "yarn.lock" }}
+
+      <% if (bowerRequired) { %>
       - restore_cache:
           keys:
             - v1-bower-deps-{{ checksum "bower.json" }}
+      <% } %>
+
       - run:
           name: Deploy master to production
           command: yarn run ember deploy production --activate --verbose
@@ -84,9 +91,13 @@ jobs:
       - restore_cache:
           keys:
             - v1-yarn-deps-{{ checksum "yarn.lock" }}
+
+      <% if (bowerRequired) { %>
       - restore_cache:
           keys:
             - v1-bower-deps-{{ checksum "bower.json" }}
+      <% } %>
+
       - run:
           name: Pull request
           command: 'if [ -n "$CIRCLE_PULL_REQUEST" ]; then yarn run ember deploy pull-request; fi'
