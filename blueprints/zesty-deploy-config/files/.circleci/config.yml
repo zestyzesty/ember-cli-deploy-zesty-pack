@@ -97,12 +97,14 @@ workflows:
     jobs:
       - build
       - deploy:
+          context: square-slack-engineering-channel
           requires:
             - build
           filters:
             branches:
               only: master
       - pull-request-deploy:
+          context: square-slack-engineering-channel
           requires:
             - build
           filters:
