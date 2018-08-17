@@ -1,0 +1,123 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:6.14-browsers
+    environment:
+      - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
+    steps:
+        - checkout
+
+        # Install global dependencies
+        - run:
+            name: Install global dependencies
+            command: |
+              sudo npm install -g yarn@rc
+              <% if (bowerRequired) { %>sudo npm install -g bower<% } %>
+
+        # Install yarn dependencies
+        # Attempt to restore from cache. If not install dependencies and save.
+        - restore_cache:
+            keys:
+              - v1-yarn-deps-{{ checksum "yarn.lock" }}
+        - run:
+            name: Install yarn dependencies
+            command: yarn install --frozen-lockfile
+        - run:
+            name: Rebuild Node
+            command: npm rebuild node-sass
+        - save_cache:
+            key: v1-yarn-deps-{{ checksum "yarn.lock" }}
+            paths:
+              - "./node_modules"
+
+        <% if (bowerRequired) { %>
+        # Install Bower dependencies
+        - restore_cache:
+            keys:
+              - v1-bower-deps-{{ checksum "bower.json" }}
+        - run:
+            name: Install bower dependencies
+            command: bower install
+        - save_cache:
+            key: v1-bower-deps-{{ checksum "bower.json" }}
+            paths:
+              - "./bower_components"
+        <% } %>
+
+        # Check versions
+        - run:
+            name: Version check
+            command: |
+              npm --version
+              yarn --version
+              <% if (bowerRequired) { %>bower --version<% } %>
+
+        # Run the test command
+        - run:
+            name: Test
+            command: yarn test
+
+  # Production Deploy Job
+  # This job will run ember deploy to production
+  deploy:
+    docker:
+      - image: circleci/node:6.14-browsers
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-yarn-deps-{{ checksum "yarn.lock" }}
+
+      <% if (bowerRequired) { %>
+      - restore_cache:
+          keys:
+            - v1-bower-deps-{{ checksum "bower.json" }}
+      <% } %>
+
+      - run:
+          name: Deploy master to production
+          command: yarn run ember deploy production --activate --verbose
+
+  # Pull Request Deploy Job
+  # This job will run ember deploy for any pull-requests
+  pull-request-deploy:
+    docker:
+      - image: circleci/node:6.14-browsers
+    environment:
+      - TZ: "/usr/share/zoneinfo/America/Los_Angeles"
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-yarn-deps-{{ checksum "yarn.lock" }}
+
+      <% if (bowerRequired) { %>
+      - restore_cache:
+          keys:
+            - v1-bower-deps-{{ checksum "bower.json" }}
+      <% } %>
+
+      - run:
+          name: Pull request
+          command: 'if [ -n "$CIRCLE_PULL_REQUEST" ]; then yarn run ember deploy pull-request; fi'
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          context: square-slack-engineering-channel
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - pull-request-deploy:
+          context: square-slack-engineering-channel
+          requires:
+            - build
+          filters:
+            branches:
+              only: /^((?!master).)*$/
