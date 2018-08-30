@@ -108,14 +108,14 @@ workflows:
     jobs:
       - build
       - deploy:
-          context: square-slack-engineering-channel
+          context: ember-deploy
           requires:
             - build
           filters:
             branches:
               only: master
       - pull-request-deploy:
-          context: square-slack-engineering-channel
+          context: ember-deploy
           requires:
             - build
           filters:
