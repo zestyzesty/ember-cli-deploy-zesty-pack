@@ -16,11 +16,11 @@
   "dependencies": {
     "bluebird": "^3.5.3",
     "ember-cli-deploy-build": "^1.1.1",
-    "ember-cli-deploy-display-revisions": "^0.1.0",
+    "ember-cli-deploy-display-revisions": "^1.0.1",
     "ember-cli-deploy-gzip": "^1.0.1",
     "ember-cli-deploy-manifest": "^1.1.0",
     "ember-cli-deploy-redis": "^1.0.3",
-    "ember-cli-deploy-revision-data": "^0.1.0",
+    "ember-cli-deploy-revision-data": "^1.0.0",
     "ember-cli-deploy-s3": "^1.4.0",
     "github": "^0.2.4",
     "inflected": "^1.1.6",
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "ember-cli": "1.13.8",
-    "ember-cli-release": "^0.2.8"
+    "ember-cli-release": "^1.0.0-beta.2"
   },
   "ember-addon": {
     "defaultBlueprint": "zesty-deploy-config",
