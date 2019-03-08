@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-deploy-zesty-pack",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
   "description": "An opinionated collection of ember-cli-deploy plugins for continuous deployment",
   "repository": "https://github.com/zestyzesty/ember-cli-deploy-zesty-pack.git",
