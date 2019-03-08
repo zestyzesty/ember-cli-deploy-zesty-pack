@@ -23,8 +23,8 @@
     "ember-cli-deploy-revision-data": "^1.0.0",
     "ember-cli-deploy-s3": "^1.4.0",
     "inflected" : "^1.1.6",
-    "node-slackr": "^0.1.2",
-    "@octokit/rest": "16.17.0"
+    "@octokit/rest": "16.17.0",
+    "@slack/client": "4.11.0"
   },
   "devDependencies": {
     "ember-cli": "2.16",
