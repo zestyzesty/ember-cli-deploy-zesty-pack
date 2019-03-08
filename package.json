@@ -1,6 +1,6 @@
 {
   "name": "ember-cli-deploy-zesty-pack",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "license": "MIT",
   "description": "An opinionated collection of ember-cli-deploy plugins for continuous deployment",
   "repository": "https://github.com/zestyzesty/ember-cli-deploy-zesty-pack.git",
@@ -22,9 +22,9 @@
     "ember-cli-deploy-redis": "^1.0.3",
     "ember-cli-deploy-revision-data": "^1.0.0",
     "ember-cli-deploy-s3": "^1.4.0",
-    "github": "^0.2.4",
-    "inflected": "^1.1.6",
-    "node-slackr": "^0.1.2"
+    "inflected" : "^1.1.6",
+    "@octokit/rest": "16.17.0",
+    "@slack/client": "4.11.0"
   },
   "devDependencies": {
     "ember-cli": "2.16",
