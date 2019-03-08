@@ -22,9 +22,9 @@
     "ember-cli-deploy-redis": "^1.0.3",
     "ember-cli-deploy-revision-data": "^1.0.0",
     "ember-cli-deploy-s3": "^1.4.0",
-    "github": "^0.2.4",
-    "inflected": "^1.1.6",
-    "node-slackr": "^0.1.2"
+    "inflected" : "^1.1.6",
+    "node-slackr": "^0.1.2",
+    "@octokit/rest": "16.17.0"
   },
   "devDependencies": {
     "ember-cli": "2.16",
